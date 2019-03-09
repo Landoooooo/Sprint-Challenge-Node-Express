@@ -17,7 +17,7 @@ router.get('/:id/actions/', async (req,res) => {
     try{
         const { id } = req.params;
         if(Projects.get(id)){
-            const project = Projects.getProjectActions(id);
+            const project =  await Projects.getProjectActions(id);
             res.status(200).json(project)
         }else{
             res.status(404).json({erroMessage: "There was an error with the ID, please try again."})

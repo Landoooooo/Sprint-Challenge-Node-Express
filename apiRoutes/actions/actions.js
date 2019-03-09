@@ -29,38 +29,40 @@ router.get('/:id', async (req,res) => {
 
 router.post('/', async (req,res) => {
     try{
-        const { id } = req.params;
+        const { project_id } = req.body;
         const { description } = req.body;
         const { notes } = req.body;
 
-        const actionParams = {id, description, notes}
+        const actionParams = {project_id, description, notes}
 
-        if(Actions.get(id) && description && notes){
+        if(description && notes){
             const newAction = await Actions.insert(actionParams);
             res.status(200).json(newAction);
         } else {
             res.status(404).json({err: "You're missing a key param that is required for the action to be added."})
         }
     } catch (e) {
+        console.log(e)
         res.status(500).json({err: "There was a problem with adding the post to the database"})
     }
 });
 
-router.put('/:id', async (req,res) => {
+router.put('/', async (req,res) => {
     try{
-        const { id } = req.params;
+        const {project_id} = req.body;
         const { description } = req.body;
         const { notes } = req.body;
 
-        const actionParams = {id, description, notes}
+        const actionParams = {project_id, description, notes}
 
-        if(Actions.get(id) && description && notes){
+        if(description && notes){
             const updatedActions = await Actions.update(actionParams);
-            res.status(200).json(actionParams)
+            res.status(200).json(updatedActions)
         } else {
             res.status(404).json({err: "You're missing a key param that is required for the action to be added."})
         }
     } catch (e){
+        console.log(e);
         res.status(500).json({err: "There was a problem with updating the action to the database"})
     }
 });
