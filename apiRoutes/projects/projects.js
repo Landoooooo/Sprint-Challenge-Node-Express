@@ -13,7 +13,7 @@ router.get('/', async (req,res) => {
     }
 });
 
-router.get('/actions/:projectId', async (req,res) => {
+router.get(':id/actions/', async (req,res) => {
     try{
         const { id } = req.params;
         if(Projects.get(id)){
