@@ -13,7 +13,7 @@ router.get('/', async (req,res) => {
     }
 });
 
-router.get('/:id', async (req,res) => {
+router.get('/actions/:projectId', async (req,res) => {
     try{
         const { id } = req.params;
         if(Projects.get(id)){
@@ -23,6 +23,7 @@ router.get('/:id', async (req,res) => {
             res.status(404).json({erroMessage: "There was an error with the ID, please try again."})
         }
     } catch(e) {
+        console.log(e)
         res.status(500).json({ error: "There was an error getting the project from the database" })
     }
 });
